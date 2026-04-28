@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'GIT_REPO', defaultValue: 'https://github.com/vishwachandra2710/node-js-sample.git', description: 'Git Repo')
+    }
+
     stages {
 
         stage('Clone') {
@@ -9,15 +13,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                bat 'npm install'
+                bat 'docker build -t test-nodejs:v1 -f Dockerfile .'
             }
         }
 
-        stage('Run App') {
+        stage('Run Container') {
             steps {
-                bat 'node index.js'
+                bat 'docker run -d -p 7878:8000 test-nodejs:v1'
             }
         }
     }
