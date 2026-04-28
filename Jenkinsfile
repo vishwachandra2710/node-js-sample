@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/heroku/node-js-sample.git'
+                git 'https://github.com/vishwachandra2710/node-js-sample.git'
             }
         }
 
